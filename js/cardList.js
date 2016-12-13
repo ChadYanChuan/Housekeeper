@@ -1,4 +1,3 @@
-(function() {
 
 	/**
 	 * 字段含义
@@ -10,49 +9,18 @@
 		"differ":卡片可免息天数
 	 */
 
-	//当日日期
-	var date = new Date();
-	var today = dateFormat(date);
-
-	function cardlist() {
-
-		var obj = dataList;
-		var html = "";
-		for(var i = 0;i < dataList.length;i++){
-			//账单日
-			var stday = dateFormat(obj[i].bankStartDate);
-			var eday = dateFormat(obj[i].bankEndDate);
-			//相差天数 = 账单日 - 当前日期
-			var days = calb(today, stday);
-
-			var lastday = free(days, stday, eday, obj[i].differ);
-			//免息天数计算
-			var xxx = calb(stday, eday);
-
-			html += '<div class="cardList">' +
-				'<div class="cardListchild">' +
-				'<p class="cardListTitle">' + obj[i].bankName + '</p>' +
-				'<ul class="mui-table-view">' +
-				'<li class="mui-table-view-cell">今日刷卡可免息使用<label class="ftbd">' + lastday.differ + '</label>天</li>' +
-				'<li class="mui-table-view-cell">今日距离账单日<label class="ftbd">' + days + '</label>天</li>' +
-				'<li class="mui-table-view-cell">信用额度：<label class="edu">' + obj[i].bankCount + '</label></li>' +
-				'<li class="mui-table-view-cell">本月账单日:' + stday.ymd + '</li>' +
-				'<li class="mui-table-view-cell">最后还款日:' + eday.ymd + '</li>' +
-				'<li class="mui-table-view-cell">今日消费最后还款日:' + lastday.ymd + '</li>' +
-				'<li class="mui-table-view-cell"><p>今日消费账单区间:</p><p>' + lastday.interval + '</p></li>' +
-				'</ul>' +
-
-				'</div>' +
-				'</div>'
-		}
-		//cardlist 页面渲染
-		document.getElementById("cardlist").innerHTML = html;
-//		$("#cardlist").append(html);
+	//每个月的账单日 最后还款日设置
+	function newDate(m,day){
+		var date0 = new Date();
+		var newDate = dateFormat(new Date(date0.getFullYear(), date0.getMonth() + m, day));
+		
+		return newDate;
 	}
+
 	//格式化日期
 	function FormatDate(strTime) {
-		var date = new Date(strTime);
-		return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+		var date1 = new Date(strTime);
+		return date1.getFullYear() + "-" + (date1.getMonth() + 1) + "-" + date1.getDate();
 	}
 	//计算日期 差 刷卡日 减去 账单日 = date2 - date1
 	function calb(date1, date2) {
@@ -89,13 +57,13 @@
 
 		return dateOBj;
 	};
-	/*免息期计算   free(days,stday,obj.differ);
+	/*免息期计算   free(today,days,stday,obj.differ);
 	 * days : 当前日期与账单日 相差天数  正值：账单日之前 负值：账单日之后
 	 * stday 账单日
 	 * eday 当月还款日
 	 * differ 免息天数
 	 */
-	function free(days, stday, eday, differ) {
+	function free(today,days, stday, eday, differ) {
 		var lastday = {};
 		var differ = differ;
 		// 当前日期在 当月账单日 之后
@@ -129,111 +97,80 @@
 
 		return theday;
 	}
+	function cardlist(dataList) {
+			//当日日期
+			var today = dateFormat(new Date());
 
-	
-	//-----------------------
-
-			var showMenu = false;
-			mui.init({
-				swipeBack: false,
-				statusBarBackground: '#f7f7f7',
-				gestureConfig: {
-					doubletap: true
-				}
-				
-			});
-			mui.plusReady(function() {
-				//仅支持竖屏显示
-				plus.screen.lockOrientation("portrait-primary");
-			});
-
-
-				//处理右上角关于图标的点击事件；
-			var subWebview = null,
-				template = null;
-			document.getElementById('info').addEventListener('tap', function() {
-				if (!mui.os.plus) {
-					mui.openWindow({
-						url: "template/info.html",
-						id: "info",
-						show: {
-							aniShow: 'zoom-fade-out',
-							duration: 300
-						}
-					});
-					return;
-				}
-				if (subWebview == null) {
-					//获取共用父窗体
-					template = plus.webview.getWebviewById("default-main");
-				}
-				if (template) {
-					subWebview = template.children()[0];
-					subWebview.loadURL('template/info.html');
-					//修改共用父模板的标题
-					mui.fire(template, 'updateHeader', {
-						title: '关于',
-						showMenu: false
-					});
-					template.show('slide-in-right', 150);
-				}
-				mui.openWindow({
-					url:"template/info.html",
-					id:"info",
-					show:{
-						aniShow:'zoom-fade-out',
-						duration:300
-					}
-				});
-			});
-			//首页返回键处理
-			//1、若侧滑菜单显示，则关闭侧滑菜单
-			//2、否则，执行mui框架默认的关闭首页功能
-			var _back = mui.back;
-			mui.back = function() {
-				if (showMenu) {
-					closeMenu();
-				} else {
-					_back();
-				}
-			};
-		//图片 定时轮播 
-	var slider = mui("#slider");
-	slider.slider({
-		interval: 3000
-	});
-	
-	//	ajax请求
-	mui.ajax('js/test.json',{
-		data:{
-			username:'username',
-			password:'password'
-		},
-		dataType:'json',//服务器返回json格式数据
-		type:'get',//HTTP请求类型
-		timeout:10000,//超时时间设置为10秒；
-		headers:{'Content-Type':'application/json'},	              
-		success:function(data){
+			var obj = dataList;
 			var html = "";
-			var list = data.list;
-			mui.each(list,function(index,item){
-				html += '<li class="mui-table-view-cell mui-media">'+
-									'<a href="javascript:; ">'+
-										'<img class="mui-media-object mui-pull-left " src="'+list[index].imgUrl+'">'+
-										'<div class="mui-media-body ">'+
-											list[index].title+
-											'<p class="mui-ellipsis ">'+list[index].info+'</p>'+
-										'</div>'+
-									'</a>'+
-								'</li>'
-			})
-			document.getElementById("muilist").innerHTML = html;
-			
-		},
-		error:function(xhr,type,errorThrown){
-			//异常处理；
-			console.log(type);
-		}
+			for(var i = 0; i < dataList.length; i++) {
+				//账单日
+				var stday = obj[i].bankStartDate;
+				var eday = obj[i].bankEndDate;
+				//相差天数 = 账单日 - 当前日期
+				var days = calb(today, stday);
+				
+				var lastday = free(today,days, stday, eday, obj[i].differ);
+				//免息天数计算
+				var xxx = calb(stday, eday);
+	
+				html += '<div class="cardList">' +
+					'<div class="cardListchild">' +
+					'<p class="cardListTitle">' + obj[i].bankName + '</p>' +
+					'<ul class="mui-table-view">' +
+					'<li class="mui-table-view-cell">今日刷卡可免息使用<label class="ftbd">' + lastday.differ + '</label>天</li>' +
+					'<li class="mui-table-view-cell">今日距离账单日<label class="ftbd">' + days + '</label>天</li>' +
+					'<li class="mui-table-view-cell">信用额度：<label class="edu">' + obj[i].bankCount + '</label></li>' +
+					'<li class="mui-table-view-cell">本月账单日:' + stday.ymd + '</li>' +
+					'<li class="mui-table-view-cell">最后还款日:' + eday.ymd + '</li>' +
+					'<li class="mui-table-view-cell">今日消费最后还款日:' + lastday.ymd + '</li>' +
+					'<li class="mui-table-view-cell"><p>今日消费账单区间:</p><p>' + lastday.interval + '</p></li>' +
+					'</ul>' +
+	
+					'</div>' +
+					'</div>'
+			}
+			//cardlist 页面渲染
+			// $("#cardlist").append(html);
+			document.getElementById("cardlist").innerHTML = html;
+	}
+	function init() {
+
+		var dataList = [{
+			"bankNumber": "123456",
+			"bankName": "招商银行",
+			"bankCount": "2000",
+			"bankStartDate": newDate(0,6),
+			"bankEndDate": newDate(0,24),
+			"differ": 48
+		}, {
+			"bankNumber": "58585",
+			"bankName": "民生银行",
+			"bankCount": "2500",
+			"bankStartDate": newDate(0,23),
+			"bankEndDate": newDate(1,13),
+			"differ": 51
+		}, {
+			"bankNumber": "58585",
+			"bankName": "广发银行",
+			"bankCount": "2500",
+			"bankStartDate": newDate(0,2),
+			"bankEndDate": newDate(0,22),
+			"differ": 51
+		}, {
+			"bankNumber": "58585",
+			"bankName": "交通银行",
+			"bankCount": "2500",
+			"bankStartDate": newDate(0,14),
+			"bankEndDate": newDate(1,8),
+			"differ": 55
+		}];
+		
+		cardlist(dataList);
+	}
+	
+	window.onload = init();
+	
+	document.getElementById("info").addEventListener("click",function(){
+		window.location.href = "template/info.html";
 	});
-	cardlist();
-})();
