@@ -1,0 +1,38 @@
+{
+	"list":[
+        {	"id":1,
+        	"title":"幸福",
+        	"info":"能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？",
+        	"imgUrl":"img/slider01.png"
+        },
+        {	
+        	"id":2,
+        	"title":"木屋",
+        	"info":"想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.",
+        	"imgUrl":"img/slider02.png"
+        },
+        {	
+        	"id":3,
+        	"title":"CBD",
+        	"info":"烤炉模式的城，到黄昏，如同打翻的调色盘一般.",
+        	"imgUrl":"img/slider03.png"
+        },
+        {	"id":4,
+        	"title":"幸福",
+        	"info":"能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？",
+        	"imgUrl":"img/slider04.png"
+        },
+        {	
+        	"id":5,
+        	"title":"木屋",
+        	"info":"想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.",
+        	"imgUrl":"img/slider05.png"
+        },
+        {	
+        	"id":6,
+        	"title":"CBD",
+        	"info":"烤炉模式的城，到黄昏，如同打翻的调色盘一般.",
+        	"imgUrl":"img/slider03.png"
+        }
+      ]
+	}

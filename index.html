@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Housekeeper</title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <style type="text/css">
+		*{font-family: "微软雅黑";}
+		#list {
+			/*避免导航边框和列表背景边框重叠，看起来像两条边框似得；*/
+			margin-top: -1px;
+		}
+		.mui-slider{max-height: 120px;}
+		.card{overflow: hidden;clear: both;}
+		.cardList{margin: 10px;border-radius: 5px;background-color: #fff;min-height: 200px;}
+		.cardListTitle{font-size: 20px;color: #000000;line-height: 45px;margin-bottom: 0;}
+		.cardListchild{margin: 10px;}
+		.mui-table-view{font-size: 14px;}
+		.mui-table-view:before{background-color:#fff;border-top: 1px solid #c8c7cc;}
+		.mui-table-view:after{background-color: #fff;}
+		.mui-table-view-cell:after{background-color: #fff;border-bottom: 1px dashed #c8c7cc;}
+		.ftbd{font-weight: bold;color: #700000;}
+		.edu{color: #3983e5;font-size: 20px;font-weight: bold;}
+		.btn{margin: 10px;text-align: center;background-color: green;border-radius: 5px;line-height: 40px;color: #fff;}
+	</style>
+    <script type="text/javascript">
+			var date = new Date();
+			var dataList = [{
+				"bankNumber": "123456",
+				"bankName": "招商银行",
+				"bankCount": "2000",
+				"bankStartDate": new Date(date.getFullYear(), date.getMonth(), 6),
+				"bankEndDate": new Date(date.getFullYear(), date.getMonth(), 24),
+				"differ": 48
+			}, {
+				"bankNumber": "58585",
+				"bankName": "民生银行",
+				"bankCount": "2500",
+				"bankStartDate": new Date(date.getFullYear(), date.getMonth(), 23),
+				"bankEndDate": new Date(date.getFullYear(), date.getMonth() + 1, 13),
+				"differ": 51
+			}, {
+				"bankNumber": "58585",
+				"bankName": "广发银行",
+				"bankCount": "2500",
+				"bankStartDate": new Date(date.getFullYear(), date.getMonth(), 2),
+				"bankEndDate": new Date(date.getFullYear(), date.getMonth(), 22),
+				"differ": 51
+			}, {
+				"bankNumber": "58585",
+				"bankName": "交通银行",
+				"bankCount": "2500",
+				"bankStartDate": new Date(date.getFullYear(), date.getMonth(), 14),
+				"bankEndDate": new Date(date.getFullYear(), date.getMonth() + 1, 8),
+				"differ": 55
+			}];
+		</script>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-icon mui-icon-bars mui-pull-left mui-plus-visible"></a>
+		<a id="info" class="mui-icon mui-icon-info-filled mui-pull-right" style="color: #999;"></a>
+		<h1 class="mui-title">Housekeeper</h1>
+	</header>
+	<div class="mui-content">
+		<header>
+			<div id="slider" class="mui-slider" >
+			  <div class="mui-slider-group mui-slider-loop">
+			    <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+			    <div class="mui-slider-item mui-slider-item-duplicate">
+			      <a href="#">
+			        <img src="img/slider04.png" />
+			      </a>
+			    </div>
+			    <!-- 第一张 -->
+			    <div class="mui-slider-item">
+			      <a href="#">
+			        <img src="img/slider01.png" />
+			      </a>
+			    </div>
+			    <!-- 第二张 -->
+			    <div class="mui-slider-item">
+			      <a href="#">
+			        <img src="img/slider02.png" />
+			      </a>
+			    </div>
+			    <!-- 第三张 -->
+			    <div class="mui-slider-item">
+			      <a href="#">
+			        <img src="img/slider03.png" />
+			      </a>
+			    </div>
+			    <!-- 第四张 -->
+			    <div class="mui-slider-item">
+			      <a href="#">
+			        <img src="img/slider04.png" />
+			      </a>
+			    </div>
+			    <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+			    <div class="mui-slider-item mui-slider-item-duplicate">
+			      <a href="#">
+			        <img src="img/slider01.png" />
+			      </a>
+			    </div>
+			  </div>
+			  <div class="mui-slider-indicator">
+			    <div class="mui-indicator mui-active"></div>
+			    <div class="mui-indicator"></div>
+			    <div class="mui-indicator"></div>
+			    <div class="mui-indicator"></div>
+			  </div>
+			</div>
+		</header>
+		<!--<div class="btn" id="btn">触发事件</div>-->
+		<!-- 菜单具体展示内容 -->
+        <ul class="mui-table-view muilist" id="muilist">
+               
+        </ul>
+		<div class="card" id="cardlist">
+			
+		</div>
+		
+	</div>
+	
+	<script src="js/jquery-1.10.1.min.js" type="text/javascript" async="async" charset="utf-8"></script>
+	<script src="js/mui.min.js"></script>
+	<script src="js/cardList.js" type="text/javascript" charset="utf-8"></script>
+	
+</body>
+</html>
