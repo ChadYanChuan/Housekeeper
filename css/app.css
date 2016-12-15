@@ -22,3 +22,26 @@
 header{
 	height: 44px;
 }
+*{font-family: "微软雅黑";font-size: 14px;}
+#list {
+	/*避免导航边框和列表背景边框重叠，看起来像两条边框似得；*/
+	margin-top: -1px;
+}
+.cl8f8{color: #8f8f94;}
+.fs16{font-size: 16px;}
+.ftheight{height: 50px;}
+.mui-slider{max-height: 120px;}
+.card{overflow: hidden;clear: both;}
+.cardList{margin: 10px;border-radius: 5px;background-color: #fff;min-height: 200px;}
+.cardListTitle{font-size: 20px;color: #000000;line-height: 45px;margin-bottom: 0;}
+.cardListchild{margin: 10px;}
+.mui-table-view{font-size: 14px;}
+.mui-table-view:before{background-color:#fff;border-top: 1px solid #c8c7cc;}
+.mui-table-view:after{background-color: #fff;}
+.mui-table-view-cell:after{background-color: #fff;border-bottom: 1px dashed #c8c7cc;}
+.ftbd{font-weight: bold;color: #700000;}
+.edu{color: #3983e5;font-size: 20px;font-weight: bold;}
+.btn{margin: 10px;text-align: center;background-color: green;border-radius: 5px;line-height: 40px;color: #fff;}
+.allMoneny{height: 160px;}
+.allAdd{padding: 8px 0;}
+.allAdd .allmon{font-weight: bold;}
